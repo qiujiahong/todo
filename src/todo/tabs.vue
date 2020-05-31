@@ -1,13 +1,13 @@
 <template>
     <div class="helper">
         <span class="left">
-            剩余2个任务
+            剩余{{unFinishedTodoLength}}个任务
         </span>
         <span class="tabs">
             <span
             v-for="state in states"
             :key="state"
-            class="[state,filter === state ? 'actived': '']"
+            :class="[state, filter === state ? 'actived' : '']"
             @click="toggleFilter(state)"
             >
                 {{state}}
@@ -26,6 +26,15 @@
             filter:{
                 type:String,
                 required: true
+            },
+            todos: {
+                type: Array,
+                required: true
+            }
+        },
+        computed:{
+            unFinishedTodoLength(){
+                return  this.todos.filter(todo => !todo.completed).length
             }
         },
         data(){
@@ -35,10 +44,11 @@
         },
         methods:{
             clearAllCompleted(){
-
+                this.$emit("clearAllCompleted")
             },
             toggleFilter(state){
-
+                console.log("test111")
+                this.$emit('toggle',state)
             }
         }
     }
