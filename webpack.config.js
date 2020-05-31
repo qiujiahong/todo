@@ -103,16 +103,19 @@ if (isDev){
     )
 }else{
 
+    //生产模式的时候修改配置
     config.output.filename = '[name].[chunkhash:8].js'
     config.module.rules.push(
         {
             test: /\.styl/,
             use: [
-                'style-loader',
                 {
                     loader: MiniCssExtractPlugin.loader,
                     options: {
-                        publicPath:  path.join(__dirname,'dist'),
+                        // publicPath:  path.join(__dirname,'dist'),
+                        publicPath: (resourcePath, context) => {
+                            return path.relative(path.dirname(resourcePath), context) + '/dist';
+                        },
                     },
                 },
                 'css-loader',
@@ -124,7 +127,6 @@ if (isDev){
                     }
                 },
                 'stylus-loader',
-                // 'css-loader',
             ],
         },
     )
@@ -133,7 +135,7 @@ if (isDev){
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // all options are optional
-            filename: '[name].css',
+            filename: '[name].[contentHash:8].css',
             chunkFilename: '[id].css',
             ignoreOrder: false, // Enable to remove warnings about conflicting order
         }),
