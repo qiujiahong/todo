@@ -1,11 +1,11 @@
-yarn init 
+# TODO 应用
 
-yarn add webpack vue vue-loader
 
-yarn add chokidar 
-
-yarn add vue-template-compiler
-
-yarn add style-loader css-loader sass-loader
-
-yarn add node-sass 
+```bash 
+# 安装依赖
+yarn install 
+# 运行调试
+yarn dev 
+# 发布包
+yarn build
+```
