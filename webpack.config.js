@@ -44,7 +44,8 @@ const config ={
                 use: ['style-loader','css-loader', 'sass-loader']
             },
             {
-                test: /\.styl$/,
+                // test: /\.styl$/,
+                test: /\.styl(us)?$/,
                 use: [
                     'style-loader',
                     'css-loader',
@@ -93,12 +94,12 @@ if (isDev){
         //启动webpack-dev-server的时候自动帮助打开浏览器
         open: true,
         //更改内容之后热加载,HotModuleReplacementPlugin, NoEmitOnErrorsPlugin
-        // hot: true,
+        hot: true,
     }
-    // config.plugins.push(
-    //     new webpack.HotModuleReplacementPlugin()
-    //     new webpack.NoEmitOnErrorsPlugin()
-    // )
+    config.plugins.push(
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin()
+    )
 }
 
 
