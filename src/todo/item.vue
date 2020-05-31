@@ -21,7 +21,7 @@
         },
         methods: {
             deleteTodo(){
-                console.log("delete ")
+                console.log(this.todo)
             }
         }
     }
