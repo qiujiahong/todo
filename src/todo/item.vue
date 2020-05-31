@@ -22,6 +22,7 @@
         methods: {
             deleteTodo(){
                 console.log(this.todo)
+                this.$emit('del',this.todo.id)
             }
         }
     }

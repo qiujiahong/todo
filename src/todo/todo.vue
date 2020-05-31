@@ -7,7 +7,12 @@
                 placeholder="接下来要做什么?"
                 @keyup.enter="addTodo"
         >
-        <Item :todo="todo"></Item>
+        <Item
+                :todo="todo"
+                v-for="todo in todos"
+                :key="todo.id"
+                @del="deleteTodo"
+        ></Item>
         <Tabs :filter="filter"></Tabs>
     </section>
 </template>
@@ -16,15 +21,12 @@
     import Item from './item.vue'
     import Tabs from './tabs.vue'
 
+    let id = 0
     export default {
         name: "todo",
         data() {
             return {
-                todo: {
-                    id: 0,
-                    content: '刷牙',
-                    completed: false
-                },
+                todos: [],
                 filter: 'all'
             }
         },
@@ -33,8 +35,19 @@
             Tabs
         },
         methods: {
-            addTodo() {
+            addTodo(e) {
                 console.log("test.")
+                this.todos.unshift(
+                    {
+                        id: id ++,
+                        content: e.target.value.trim(),
+                        completed: false
+                    }
+                )
+                e.target.value=''
+            },
+            deleteTodo(id){
+                this.todos.splice(this.todos.findIndex(todo => todo.id === id),1)
             }
         }
     }
