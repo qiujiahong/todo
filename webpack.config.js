@@ -30,6 +30,10 @@ const config ={
                 test: /.vue$/,
                 loader: 'vue-loader'
             },
+            {
+                test: /.jsx$/,
+                loader: 'babel-loader'
+            },
             {// 添加这个json，解决如上的报错问题
                 test: /\.scss$/,
                 use: ['style-loader','css-loader', 'sass-loader']
@@ -41,7 +45,18 @@ const config ={
             },
             {
                 test: /\.styl$/,
-                use: ['style-loader','css-loader', 'stylus-loader']
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    {
+                        loader: "postcss-loader",
+                        //使用前面生成的sourceMap
+                        options: {
+                            sourceMap: true
+                        }
+                    },
+                    'stylus-loader'
+                ]
             },
             {
                 test:/\.(gif|jpeg|jpg|png|svg)$/,
